@@ -1,0 +1,9 @@
+<div class="well">
+    <span id="close-details" role="button" ng-click="details = null" aria-label="Close request search" title="Close details on this alert." class="pull-right glyphicon glyphicon-remove"></span>
+    <h3>Alert Details #{{details.AlertId}}</h3>
+    <hr/>
+    <p ng-repeat="(key, value) in details">
+        <span>{{key}}:</span>
+        <span ng-class="{'lowSeverity': value.toLowerCase()==='low', 'mediumSeverity': value.toLowerCase()==='medium', 'highSeverity': value.toLowerCase()==='high'}">{{value}}</span>
+    </p>
+</div>

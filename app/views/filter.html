@@ -1,0 +1,51 @@
+<div class="well">
+    <form id="filter-form" role="form">
+        <h3>Filters</h3>
+        <br/>
+        <div>
+            <div class="form-group">
+                <label for="severity-filter">
+                    Severity
+                </label><hr/>
+                <ul id="severity-filter">
+                    <li ng-if="getSeverityCount('High') > 0"><a ng-click="addFilter('severity', 'high')" aria-label="High Severity Filter" href="javascript:void(0)">High ({{getSeverityCount('High')}})</a></li>
+                    <li ng-if="getSeverityCount('Medium') > 0"><a ng-click="addFilter('severity', 'medium')" aria-label="Medium Severity Filter" href="javascript:void(0)">Medium ({{getSeverityCount('Medium')}})</a></li>
+                    <li ng-if="getSeverityCount('Low') > 0"><a ng-click="addFilter('severity', 'low')" aria-label="Low Severity Filter" href="javascript:void(0)">Low ({{getSeverityCount('Low')}})</a></li>
+                </ul>
+            </div>
+            <br/>
+
+            <div class="form-group">
+                <label for="protocol-filter">
+                    Protocol
+                </label>
+                <hr/>
+                <ul id="protocol-filter">
+                    <li ng-repeat="alert in data | unique: 'Protocol'"><a href="javascript:void(0)" ng-click="addFilter('protocol', alert.Protocol)" aria-label="{{alert.Protocol}} Protocol Filter">{{alert.Protocol}} ({{getProtocolCount(alert.Protocol)}})</a></li>
+                </ul>
+            </div>
+            <br/>
+
+            <div class="form-group">
+                <label for="client-filter">
+                    Client IP
+                </label><hr/>
+                <ul id="client-filter">
+                    <li ng-repeat="alert in data | unique: 'ClientIP'"><a href="javascript:void(0)" ng-click="addFilter('clientIP', alert.ClientIP)" aria-label="{{alert.ClientIP}} Client IP Filter">{{alert.ClientIP}} ({{getClientCount(alert.ClientIP)}})</a></li>
+                </ul>
+            </div>
+            <div>
+                <button type="button"
+                        class="btn active"
+                        ng-click="filters.added = []"
+                        id="user-filter-reset-results"
+                        aria-label="Press enter to reset the filter.">
+                    Clear All
+                </button>
+            </div>
+        </div>
+
+
+    </form>
+
+</div>

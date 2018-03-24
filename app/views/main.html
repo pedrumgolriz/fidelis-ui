@@ -1,0 +1,49 @@
+<div class="row">
+    <filter-bar data="filtered" filters="filters" class="col-md-2 filterBar" ng-show="searchPanelVisible"></filter-bar>
+    <div class="alerts-container col-md-7" ng-class="{'col-md-9 col-md-offset-right-1' : !itemSelected}">
+        <div class="content" id="tab-nav">
+            <div class="row">
+                <header>
+                    <div class="row">
+                        <div class="col-md-6 filterBar">
+                            <h3 id="request-count">
+                                Alerts ({{filtered.length}})
+                            </h3>
+                        </div>
+
+
+                        <div class="col-md-6 col-lg-6 col-sm-6 filterBar">
+                            <div class="form-group has-warning has-feedback">
+                                <label class="control-label" for="user-request-search"></label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="user-request-search"
+                                       ng-model="searchText"
+                                       placeholder="Search">
+                                <i ng-click="triggerSearch()" class="glyphicon glyphicon-search form-control-feedback request-search-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th ng-repeat="(key, value) in alerts[0]">{{key}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-click="loadDetails(alert)" ng-class="itemSelected == alert ? 'selected' : ''" ng-repeat="alert in filtered = (alerts | searchFilter: searchText | customFilter: filters.added) track by $index">
+                                    <td ng-repeat="(key, value) in filtered[$index]" ng-class="{'lowSeverity': value.toLowerCase()==='low', 'mediumSeverity': value.toLowerCase()==='medium', 'highSeverity': value.toLowerCase()==='high'}">{{value}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <details-view class="col-md-3 fixed" ng-show="itemSelected" details="itemSelected"></details-view>
+</div>
